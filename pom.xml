@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tinycsv</groupId>
-    <artifactId>tinycsv</artifactId>
+    <groupId>easycsv</groupId>
+    <artifactId>easycsv</artifactId>
     <packaging>jar</packaging>
     <version>0.5.0</version>
 
@@ -35,6 +35,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>pl.pragmatists</groupId>
+            <artifactId>JUnitParams</artifactId>
+            <version>1.0.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

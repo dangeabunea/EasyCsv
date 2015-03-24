@@ -1,9 +1,7 @@
 package easycsv;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static easycsv.CodeAssertion.verifyThat;
 
@@ -11,75 +9,97 @@ import static easycsv.CodeAssertion.verifyThat;
  * Created by Dan Geabunea on 3/21/2015.
  */
 public class CsvColumn {
-    private String value;
+    private String columnValue;
+
+    /*
+    Instantiates a CsvColumn with no columnValue (null)
+     */
+    public CsvColumn(){
+    }
 
     public CsvColumn(String value) {
-        this.value = value;
+        this.columnValue = value;
     }
 
-    public boolean isEmpty(){
-        return value == null;
+    public CsvColumn(int intValue){
+        this.columnValue = Integer.toString(intValue);
     }
 
-    public String getValue() {
-        return value;
+    public CsvColumn(double doubleValue){
+        this.columnValue = Double.toString(doubleValue);
     }
 
-    public int getIntValue(){
-        verifyThat(value != null, EasyCsvErrorMessages.nullValue(value));
+    public CsvColumn(boolean booleanValue){
+        this.columnValue = Boolean.toString(booleanValue);
+    }
+
+    public CsvColumn(LocalDate dateValue){
+        this.columnValue = dateValue.toString();
+    }
+
+    public boolean hasValue(){
+        return columnValue == null;
+    }
+
+    public String getColumnValue() {
+        return columnValue;
+    }
+
+    public int getInteger(){
+        verifyThat(columnValue != null, EasyCsvErrorMessages.nullValue(columnValue));
         try {
-            int parsedValue = Integer.parseInt(value);
+            int parsedValue = Integer.parseInt(columnValue);
             return parsedValue;
         }
         catch (NumberFormatException e){
-            throw new EasyCsvConversionException(EasyCsvErrorMessages.integerConversion(value));
+            throw new EasyCsvConversionException(EasyCsvErrorMessages.integerConversion(columnValue));
         }
     }
 
-    public double getDoubleValue(){
-        verifyThat(value != null, EasyCsvErrorMessages.nullValue(value));
+    public double getDouble(){
+        verifyThat(columnValue != null, EasyCsvErrorMessages.nullValue(columnValue));
         try {
-            double parsedValue = Double.parseDouble(value);
+            double parsedValue = Double.parseDouble(columnValue);
             return parsedValue;
         }
         catch (NumberFormatException e){
-            throw new EasyCsvConversionException(EasyCsvErrorMessages.doubleConversion(value));
+            throw new EasyCsvConversionException(EasyCsvErrorMessages.doubleConversion(columnValue));
         }
     }
 
-    public boolean getBooleanValue(){
-        verifyThat(value != null, EasyCsvErrorMessages.nullValue(value));
+    public boolean getBoolean(){
+        verifyThat(columnValue != null, EasyCsvErrorMessages.nullValue(columnValue));
 
         //check for true values
-        if(value.equalsIgnoreCase("true") ||
-                value.equalsIgnoreCase("t") ||
-                value.equalsIgnoreCase("yes") ||
-                value.equalsIgnoreCase("y") ||
-                value.equals("1")){
+        if(columnValue.equalsIgnoreCase("true") ||
+                columnValue.equalsIgnoreCase("t") ||
+                columnValue.equalsIgnoreCase("yes") ||
+                columnValue.equalsIgnoreCase("y") ||
+                columnValue.equals("1")){
             return true;
         }
 
         //check for true values
-        if(value.equalsIgnoreCase("false") ||
-                value.equalsIgnoreCase("f") ||
-                value.equalsIgnoreCase("no") ||
-                value.equalsIgnoreCase("n") ||
-                value.equals("0")){
+        if(columnValue.equalsIgnoreCase("false") ||
+                columnValue.equalsIgnoreCase("f") ||
+                columnValue.equalsIgnoreCase("no") ||
+                columnValue.equalsIgnoreCase("n") ||
+                columnValue.equals("0")){
             return false;
         }
 
-        throw new EasyCsvConversionException(EasyCsvErrorMessages.booleanConversion(value));
+        throw new EasyCsvConversionException(EasyCsvErrorMessages.booleanConversion(columnValue));
     }
 
-    public Date getDateValue(String dateFormat){
-        verifyThat(value != null, EasyCsvErrorMessages.nullValue(value));
+    public LocalDate getDate(String dateFormat){
+        verifyThat(columnValue != null, EasyCsvErrorMessages.nullValue(columnValue));
 
         try {
-            DateFormat df = new SimpleDateFormat(dateFormat);
-            Date result = df.parse(value);
-            return result;
-        } catch (ParseException e) {
-            throw new EasyCsvConversionException(EasyCsvErrorMessages.dateConversion(value, dateFormat));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+            LocalDate dateTime = LocalDate.parse(columnValue, formatter);
+            return dateTime;
+        } catch (Exception e) {
+            throw new EasyCsvConversionException(EasyCsvErrorMessages.dateConversion(columnValue, dateFormat));
         }
     }
 

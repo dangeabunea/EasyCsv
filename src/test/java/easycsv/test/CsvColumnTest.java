@@ -7,7 +7,7 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +24,7 @@ public class CsvColumnTest {
         CsvColumn someIntCsvColumn = new CsvColumn(someIntValue);
 
         //act
-        int result = someIntCsvColumn.getIntValue();
+        int result = someIntCsvColumn.getInteger();
 
         //assert
         assertEquals(20, result);
@@ -37,7 +37,7 @@ public class CsvColumnTest {
         CsvColumn someCsvColumn = new CsvColumn(someValue);
 
         //act
-        someCsvColumn.getIntValue();
+        someCsvColumn.getInteger();
     }
 
     @Test
@@ -47,7 +47,7 @@ public class CsvColumnTest {
         CsvColumn someDoubleCsvColumn = new CsvColumn(someDoubleValue);
 
         //act
-        double result = someDoubleCsvColumn.getDoubleValue();
+        double result = someDoubleCsvColumn.getDouble();
 
         //assert
         assertEquals(20.2, result, 0.0000001);
@@ -60,7 +60,7 @@ public class CsvColumnTest {
         CsvColumn someCsvColumn = new CsvColumn(someValue);
 
         //act
-        someCsvColumn.getDoubleValue();
+        someCsvColumn.getDouble();
     }
 
     @Test
@@ -82,8 +82,8 @@ public class CsvColumnTest {
         CsvColumn columnWithFalseResult = new CsvColumn(falseValue);
 
         //act
-        boolean resultThatShouldBeTrue = columnWithTrueResult.getBooleanValue();
-        boolean resultThatShouldBeFalse = columnWithFalseResult.getBooleanValue();
+        boolean resultThatShouldBeTrue = columnWithTrueResult.getBoolean();
+        boolean resultThatShouldBeFalse = columnWithFalseResult.getBoolean();
 
         //assert
         assertTrue(resultThatShouldBeTrue);
@@ -100,11 +100,11 @@ public class CsvColumnTest {
         CsvColumn csvColumn = new CsvColumn(date);
 
         //act
-        Date result = csvColumn.getDateValue(dateFormat);
+        LocalDate result = csvColumn.getDate(dateFormat);
 
         //assert
-        //assertEquals(2014, result.getYear());
-        //assertEquals(1, result.getMonth());
-        //assertEquals(1, result.getDay());
+        assertEquals(2014, result.getYear());
+        assertEquals(1, result.getMonthValue());
+        assertEquals(1, result.getDayOfMonth());
     }
 }

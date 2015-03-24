@@ -23,4 +23,8 @@ public class EasyCsvErrorMessages {
     public static String dateConversion(String value, String dateFormat) {
         return "Can not convert value '" + value + "' to Date using format " + dateFormat;
     }
+
+    public static String emptyList(String variableName) {
+        return "List " + variableName + " should not be empty. ";
+    }
 }

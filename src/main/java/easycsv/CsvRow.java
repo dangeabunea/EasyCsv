@@ -72,4 +72,16 @@ public class CsvRow {
     public boolean isEmpty(){
         return columns.size() == 0;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i < this.columns.size(); i++){
+            sb.append(this.columns.get(i).getColumnValue());
+            if(i < columns.size()-1) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
 }

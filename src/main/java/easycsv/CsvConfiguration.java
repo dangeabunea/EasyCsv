@@ -3,6 +3,8 @@ package easycsv;
 import java.util.ArrayList;
 import java.util.List;
 
+import static easycsv.CodeAssertion.verifyThat;
+
 /**
  * Created by dan-geabunea on 3/26/2015.
  */
@@ -11,7 +13,7 @@ public class CsvConfiguration {
     private List<Integer> columnIndexesToParse;
 
     public CsvConfiguration(){
-        this.skipHeader = true;
+        this.skipHeader = false;
         this.columnIndexesToParse = new ArrayList<>();
     }
 
@@ -29,6 +31,14 @@ public class CsvConfiguration {
 
     public void setColumnIndexesToParse(List<Integer> columnIndexesToParse) {
         this.columnIndexesToParse = columnIndexesToParse;
+    }
+
+    public void setColumnIndexesToParse(int... columnIndexesToParse) {
+        verifyThat(columnIndexesToParse.length > 0, EasyCsvErrorMessages.emptyList("columnIndexesToParse"));
+
+        for (int columnIndex : columnIndexesToParse){
+            this.columnIndexesToParse.add(columnIndex);
+        }
     }
 
     public boolean parseAllColumns(){

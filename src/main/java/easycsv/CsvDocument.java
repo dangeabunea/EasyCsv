@@ -2,9 +2,7 @@ package easycsv;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +25,38 @@ public class CsvDocument {
         return csvRows;
     }
 
+    /**
+     * Boolean flag for determining if a CSV document is empty (does not have any rows/content)
+     */
     public boolean isEmpty(){
         return this.csvRows.size() == 0;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(CsvRow row : this.csvRows){
+            sb.append(row.toString());
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Reads the content of a csv file and transforms it into a CsvDocument object
+     * @param filePath The absolute file path to the csv file
+     * @throws IOException
+     */
     public static CsvDocument read(String filePath) throws IOException {
         CsvConfiguration defaultConfiguration = new CsvConfiguration();
         return CsvDocument.read(filePath, defaultConfiguration);
     }
 
+    /**
+     * Reads the content of a csv file and transforms it into a CsvDocument object
+     * @param filePath The absolute file path to the csv file
+     * @param csvConfiguration a configuration object that dictates how the csv parsing will take place
+     * @throws IOException
+     */
     public static CsvDocument read(String filePath, CsvConfiguration csvConfiguration) throws IOException {
         verifyThat(filePath != null, EasyCsvErrorMessages.nullValue("filePath"));
         verifyThat(csvConfiguration != null, EasyCsvErrorMessages.nullValue("csvConfiguration"));
@@ -61,8 +82,21 @@ public class CsvDocument {
         }
     }
 
-    public static void save(CsvDocument document, String savePath){
-        throw new NotImplementedException();
+    /**
+     * Writes the content of the csv document to the given path on disk. If the file does not exist, it will
+     * be created
+     * @param document the csv document to be written to a file
+     * @param savePath the absolute file path where the csv document will be written
+     */
+    public static boolean tryWriteToFile(CsvDocument document, String savePath){
+        try (PrintStream out = new PrintStream(new FileOutputStream(savePath))) {
+            out.print(document.toString());
+            out.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private static CsvRow parseCsvRow(CsvConfiguration csvConfiguration, String csvLine) {

@@ -1,16 +1,19 @@
 package easycsv.test;
 
+import easycsv.CsvColumn;
 import easycsv.CsvConfiguration;
 import easycsv.CsvDocument;
 import easycsv.CsvRow;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by dan-geabunea on 3/26/2015.
@@ -99,6 +102,21 @@ public class CsvDocumentTest {
         assertEquals("Mary", secondPerson.getName());
         assertEquals(31, secondPerson.getAge());
         assertEquals(true, secondPerson.isEmployed());
+    }
+
+    @Test
+    @Ignore()
+    public void the_write_method_should_write_to_file(){
+        //arrange
+        String outputPath = "write_path_here";
+        CsvRow someRow = new CsvRow(new CsvColumn("some value"), new CsvColumn(2.2), new CsvColumn(true));
+        CsvDocument documentWithOneRow = new CsvDocument(new ArrayList<>(Arrays.asList(someRow)));
+
+        //act
+        boolean result = CsvDocument.tryWriteToFile(documentWithOneRow, outputPath);
+
+        //assert
+        assertTrue(result);
     }
 
     /*

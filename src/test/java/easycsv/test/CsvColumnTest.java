@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 /**
- * Created by Dan on 3/21/2015.
+ * Created by Dan Geabunea on 3/21/2015.
  */
 @RunWith(JUnitParamsRunner.class)
 public class CsvColumnTest {

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by dan-geabunea on 3/26/2015.
+ * Created by Dan Geabunea on 3/26/2015.
  */
 public class CsvDocumentTest {
 
@@ -89,6 +89,8 @@ public class CsvDocumentTest {
                         x.getColumnAtIndex(2).getBoolean()
                 ))
                 .collect(Collectors.toList());
+
+
 
         //assert
         assertEquals(2, persons.size());

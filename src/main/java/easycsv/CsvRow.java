@@ -7,7 +7,7 @@ import java.util.List;
 import static easycsv.CodeAssertion.verifyThat;
 
 /**
- * Created by dan on 3/24/15.
+ * Created by Dan Geabunea on 3/24/15.
  */
 public class CsvRow {
     private List<CsvColumn> columns;

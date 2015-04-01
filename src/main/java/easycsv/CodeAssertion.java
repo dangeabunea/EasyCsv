@@ -1,7 +1,7 @@
 package easycsv;
 
 /**
- * Created by Dan on 3/21/2015.
+ * Created by Dan Geabunea on 3/21/2015.
  */
 public class CodeAssertion {
 

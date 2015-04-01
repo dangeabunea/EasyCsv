@@ -6,7 +6,7 @@ import java.util.List;
 import static easycsv.CodeAssertion.verifyThat;
 
 /**
- * Created by dan-geabunea on 3/26/2015.
+ * Created by Dan Geabunea on 3/26/2015.
  */
 public class CsvConfiguration {
     private boolean skipHeader;

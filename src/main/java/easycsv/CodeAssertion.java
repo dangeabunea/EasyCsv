@@ -3,7 +3,7 @@ package easycsv;
 /**
  * Created by Dan Geabunea on 3/21/2015.
  */
-public class CodeAssertion {
+class CodeAssertion {
 
     /**
      * Check if the provided expression is valid.

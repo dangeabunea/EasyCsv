@@ -106,11 +106,11 @@ public class CsvDocumentTest {
         assertEquals(true, secondPerson.isEmployed());
     }
 
-    @Test
     @Ignore()
+    @Test
     public void the_write_method_should_write_to_file(){
         //arrange
-        String outputPath = "write_path_here";
+        String outputPath = getClass().getClassLoader().getResource("csv_output_test.csv").getPath();;
         CsvRow someRow = new CsvRow(new CsvColumn("some value"), new CsvColumn(2.2), new CsvColumn(true));
         CsvDocument documentWithOneRow = new CsvDocument(new ArrayList<>(Arrays.asList(someRow)));
 

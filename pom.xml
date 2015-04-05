@@ -7,7 +7,14 @@
     <groupId>easytools</groupId>
     <artifactId>easycsv</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
+
+    <distributionManagement>
+        <repository>
+            <id>easytools</id>
+            <url>ftp://ftp.easyrepository.com</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -22,6 +29,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>1.0-alpha-6</version>
+            </extension>
+        </extensions>
     </build>
 
     <dependencies>
